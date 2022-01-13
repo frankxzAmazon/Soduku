@@ -1,17 +1,12 @@
 from board import Board
 class Solver:
-    def find_empty_cell(self,board:Board):
-        for i in range(board.row):
-            for j in range(board.column):
-                if board.cells[i][j]==0:
-                    return i,j
-        return False
+
 
 
 
     def solve_soduku(self,board):
-        if self.find_empty_cell(board):
-            row,column=self.find_empty_cell(board)
+        if board.empty_cell_exists():
+            row,column=board.empty_cell_exists()
         else:
             return True
         for i in range(1,10):

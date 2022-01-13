@@ -1,3 +1,4 @@
+# from functools import lru_cache
 class Board:
     def __init__(self,row:int=9,column:int=9):
         self.row=row
@@ -31,3 +32,10 @@ class Board:
                     print(self.cells[i][j])
                 else:
                     print(str(self.cells[i][j])+" ",end="")
+    # @lru_cache()
+    def empty_cell_exists(self):
+        for i in range(self.row):
+            for j in range(self.column):
+                if self.cells[i][j]==0:
+                    return i,j
+        return False
