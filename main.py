@@ -1,4 +1,7 @@
 import random
+from board import Board
+from generator import Generator
+from solver import Solver
 
 # the sudoku grid
 
@@ -40,81 +43,25 @@ def get_difficulty_level():
         exit()
     return get_filled_cell(difficulty_level)
 
-def generate_empty_board():
-    return [[0 for _ in range(9)] for _ in range(9)]
 
-
-def is_valid_soduku(board:list[list],row:int,column:int,number:int):
-    for x in range(9):
-        if board[x][column]==number:
-            return False
-    for x in range(9):
-        if board[row][x]==number:
-            return False
-    row_section=row//3
-    column_section=column//3
-    for x in range(3):
-        for y in range(3):
-            if board[row_section*3+x][column_section*3+y]==number:
-                return False
-    return True
-
-def generate_row_col_num():
-    return random.randrange(9),random.randrange(9),random.randrange(1,10)
-
-def cannot_fill_numbert_at_this_position(board,row,column,number):
-    return board[row][column]!=0 or is_valid_soduku(board,row,column,number)==False
-
-def generate_soduku(board):
-    for _ in range(number_of_filled_cells):
-        row,column,number=generate_row_col_num()
-        while cannot_fill_numbert_at_this_position(row,column,number):
-            row,column,number=generate_row_col_num()
-        board[row][column]=number
-
-
-def print_board(board:list[list]):
-    for i in range(len(board)):
-        if i%3==0 and i!=0:
-            print("-------------------")
-        for j in range(len(board[0])):
-            if j%3==0 and j!=0:
-                print("|",end="")
-            if j==8:
-                print(board[i][j])
-            else:
-                print(str(board[i][j])+" ",end="")
-
-# if __name__=="__main__":
-     
-
-def find_empty_cell(board):
-    for i in range(len(board)):
-        for j in range(len(board[0])):
-            if board[i][j]==0:
-                return i,j
-    return False
+def main():
+    number_of_filled_cells=get_difficulty_level()
+    # number_of_filled_cells=32
+    board=Board()
+    generator=Generator()
+    generator.generate(board,number_of_filled_cells)
+    board.print_board()
+    solver=Solver()
+    solver.solve_soduku(board)
+    print("solution\n")
+    board.print_board()
 
 
 
-def solver(board):
-    if find_empty_cell(board):
-        row,column=find_empty_cell(board)
-    else:
-        return True
-    for i in range(1,10):
-        if is_valid_soduku(board,row,column,i):
-            board[row][column]=i
-            if solver(board):
-                return True
-            board[row][column]=0
-    return False
 
 if __name__ == "__main__":
+    main()
 
-    print("solution\n")
-    solver(board)
-    print_board(board) 
 
 
 
