@@ -1,4 +1,4 @@
-# from functools import lru_cache
+
 class Board:
     def __init__(self,row:int=9,column:int=9):
         self.row=row
@@ -39,3 +39,6 @@ class Board:
                 if self.cells[i][j]==0:
                     return i,j
         return False
+
+
+            

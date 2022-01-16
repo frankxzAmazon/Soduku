@@ -1,4 +1,3 @@
-import random
 from board import Board
 from generator import Generator
 from solver import Solver
@@ -28,16 +27,23 @@ def get_difficulty_level():
 
 
 def main():
-    # number_of_filled_cells=get_difficulty_level()
-    number_of_filled_cells=20
-    board=Board()
-    generator=Generator()
-    generator.generate(board,number_of_filled_cells)
-    board.print_board()
+    number_of_filled_cells=get_difficulty_level()
+    # number_of_filled_cells=15
     solver=Solver()
-    solver.solve_soduku(board)
-    print("solution\n")
+    generator=Generator()
+    
+    board=Board()
+    generator.generate(board,number_of_filled_cells)
+    while not solver.is_sovlable(board):
+        board=Board()
+        generator.generate(board,number_of_filled_cells)
+
+
     board.print_board()
+    print("solution\n")
+    solver.solve_soduku(board)
+    board.print_board()
+
 
 
 

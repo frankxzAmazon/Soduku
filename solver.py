@@ -1,12 +1,15 @@
 from board import Board
+import copy
 class Solver:
 
 
 
 
     def solve_soduku(self,board):
-        if board.empty_cell_exists():
-            row,column=board.empty_cell_exists()
+        
+        empty_cell=board.empty_cell_exists()
+        if empty_cell:
+            row,column=empty_cell
         else:
             return True
         for i in range(1,10):
@@ -14,5 +17,11 @@ class Solver:
                 board.cells[row][column]=i
                 if self.solve_soduku(board):
                     return True
-                board.cells[row][column]=0
+                else:
+                    board.cells[row][column]=0
+        return False
+    
+    def is_sovlable(self,board:Board):
+        board_copy=copy.deepcopy(board)
+        if self.solve_soduku(board_copy): return True
         return False

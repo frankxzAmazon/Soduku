@@ -1,6 +1,3 @@
-from typing import Generator
-
-
 import random
 from board import Board
 class Generator:
